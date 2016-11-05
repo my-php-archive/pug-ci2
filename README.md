@@ -1,9 +1,9 @@
 ### Important 
 If you don't want to clone repo
 
-Add vendor autoload to CI index.php preview download.
-Add core/MY_Loader.php to {app}/core  *Skip this one, only if error*
-Add Jade and pug library to your app libraries
+* Add vendor autoload to CI index.php preview download.
+* Add core/MY_Loader.php to {app}/core  *Skip this one, only if error*
+* Add Jade and pug library to your app libraries
 
 If not add pug class extending jade, use jade instead pug.
 

@@ -56,7 +56,9 @@ html(lang='en')
 	body
 		#container
 			h1 Welcome to !{message}
-			#body #{body}
+			#body
+				if isset($body)
+					| #{body}
 			p.footer
 				| Page rendered in 
 				strong {elapsed_time}

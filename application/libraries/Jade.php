@@ -2,6 +2,7 @@
 
 /**
  * @author kylekatarnls
+ * @author WCLab
  */
 
 class Jade {
@@ -56,19 +57,25 @@ class Jade {
 
 	public function view($view, $data = array(), $return = false) {
 		# view($data,true)
-		if (is_array($view) or $view === true) {
+		if (is_array($view)) {
+			$return = $data===true ? true : false;
+			$data = $view;
 			$view = null;
-			$data = array();
 		}
 
+		//view(true)
+		if ($view===true) {
+			$data = array();
+			$view = null;
+			$return = true;
+		}
 		
 		if(! $this->jade) {
 			$this->settings();
 		}
 
-
 		$views_path = str_replace("\\", "/", $this->views_path . DIRECTORY_SEPARATOR);
-		// die($views_path);
+
 		//Views expected
 		$views = array(
 			"original" => $view.$this->ext,
@@ -78,15 +85,12 @@ class Jade {
 
 
 		if (is_null($view)){
-
 			if (file_exists($this->views_path.DIRECTORY_SEPARATOR.$views['method'])) {
 				$view = $this->views_path.DIRECTORY_SEPARATOR.$views['method'];
 			}
-
 			elseif(file_exists($this->views_path.DIRECTORY_SEPARATOR.$views['module'])){
 				$view = $this->views_path.DIRECTORY_SEPARATOR.$views['module'];
 			}
-
 			else{
 				show_error("Unable to load the requested file: {$views['method']}","500");
 			}
@@ -100,11 +104,10 @@ class Jade {
 			}
 		}
 
-	 
-		$data = array_merge($this->CI->load->get_vars(), $data);
-		if($return) return $this->jade->render($view, $data);
-		else $this->CI->output->set_output($this->jade->render($view, $data));
-
+		if($return) 
+			return $this->jade->render($view, $data);
+		else 
+			$this->CI->output->set_output($this->jade->render($view, $data));
 	}
 
 }

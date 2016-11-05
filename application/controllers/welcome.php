@@ -21,7 +21,14 @@ class Welcome extends CI_Controller {
 	{
 		// $this->load->view('welcome_message');
 		$this->load->library('pug');
-		$this->pug->view("welcome_message");
+		
+		$data = array(
+			'message'=>'Codeigniter-Pug',
+			'library' => "pug-php"
+		);
+
+		$data["body"] = $this->pug->view(true);
+		$this->pug->view("welcome_message",$data);
 	}
 }
 
